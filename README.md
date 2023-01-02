@@ -206,6 +206,20 @@ spec:
 EOF
 ```
 
+On peut ensuite suivre la creation des cluster-operator avec: 
 
+```shell
+oc --kubeconfig ${KUBEVIRT_CLUSTER_NAME}-kubeconfig get clusteroperators -A
+```
 
+Lorsque la console est up and running on peux y acceder via l'url suivante
+```shell
+echo console-openshift-console.apps.${KUBEVIRT_CLUSTER_NAME}.${BASE_DOMAIN}
+```
+
+Le kubeadmin-password peut etre obtenu avec la commande suivante:
+
+```shell
+oc get secret  -n $KUBEVIRT_CLUSTER_NAMESPACE kubeadmin-password -o go-template --template="{{.data.password|base64decode}}"
+```
 
