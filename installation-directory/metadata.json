@@ -1,0 +1,1 @@
+{"clusterName":"florian-kubevirt","clusterID":"0cc8398d-d000-4863-aa6b-cb9288bcd257","infraID":"florian-kubevirt-2dx6s","aws":{"region":"us-east-2","identifier":[{"kubernetes.io/cluster/florian-kubevirt-2dx6s":"owned"},{"openshiftClusterID":"0cc8398d-d000-4863-aa6b-cb9288bcd257"}],"clusterDomain":"florian-kubevirt.sandbox2082.opentlc.com"}}
