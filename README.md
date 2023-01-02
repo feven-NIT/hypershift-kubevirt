@@ -43,12 +43,15 @@ openshift-install create cluster --dir installation-directory
 ### Installation Openshift Virtualization et le multicluster-engine 
 
 #### Openshift Virtualization 
+
+
 Cliquez sur Opérateurs → OperatorHub.
 
 Selectionnez OpenShift Virtualization.
 
-
 Lisez les informations sur l'opérateur et cliquez sur Installer.
+
+Creez ensuite une instance d'OpenShift Virtualization Deployment.
 
 
 
@@ -79,16 +82,6 @@ Installer le binaire hypershift puis active le mode hypershift preview du MCE.On
 
 ```shell
 oc patch ingresscontroller -n openshift-ingress-operator default --type=json -p '[{ "op": "add", "path": "/spec/routeAdmission", "value": {wildcardPolicy: "WildcardsAllowed"}}]'
-```
-
-```shell
-oc apply -f - <<EOF
-apiVersion: multicluster.openshift.io/v1
-kind: MultiClusterEngine
-metadata:
-  name: multiclusterengine-sample
-spec: {}
-EOF
 ```
 
 ```shell
@@ -146,6 +139,6 @@ kubevirt \
 --node-pool-replicas=2 \
 --memory '6Gi' \
 --pull-secret $PULL_SECRET \
---release-image=quay.io/openshift-release-dev/ocp-release@sha256:b33682f203818fcec713c1c7cbe0b01731c8b64991579ca95d1a6409823c652a \
+--release-image=quay.io/openshift-release-dev/ocp-release@sha256:b33682f203818fcec713c1c7cbe0b01731c8b64991579ca95d1a6409823c652a
 ```
 
