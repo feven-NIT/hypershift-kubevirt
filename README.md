@@ -62,7 +62,16 @@ Selectionnez MutliCluster Engine.
 
 Lisez les informations sur l'opérateur et cliquez sur Installer.
 
-
+Creez ensuite une instance de mutlicluster engine.
+```shell
+oc apply -f - <<EOF
+apiVersion: multicluster.openshift.io/v1
+kind: MultiClusterEngine
+metadata:
+  name: multiclusterengine
+spec: {}
+EOF
+```
 
 ### Configuration d'hypershift
 
@@ -83,7 +92,7 @@ EOF
 ```
 
 ```shell
-oc patch mce multiclusterengine-sample --type=merge -p '{"spec":{"overrides":{"components":[{"name":"hypershift-preview","enabled": true}]}}}' 
+oc patch mce multiclusterengine --type=merge -p '{"spec":{"overrides":{"components":[{"name":"hypershift-preview","enabled": true}]}}}' 
 ```
 
 Créer le ManagedCluster local-cluster qui permet aux composants MCE de traiter le cluster sur lequel il s'exécute comme un hôte pour les clusters invités.
