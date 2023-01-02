@@ -19,6 +19,7 @@ openshift-install create install-config --dir installation-directory
 
 Completez les parametre relatif a votre cluster.
 
+![ipi-install](./images/ipi-install.png)
 
 Dans ce guide on utilisera des instances types m5.metal. Aller dans installation-directory et modifier le fichier install-config.yaml pour utiliser des worker baremetals.
 
@@ -53,7 +54,7 @@ Lisez les informations sur l'opérateur et cliquez sur Installer.
 
 Creez ensuite une instance d'OpenShift Virtualization Deployment.
 
-
+![openshift-virtualization operator](./images/openshift-virtualization-operator.png)
 
 #### Mutlicluster engine
 
@@ -223,3 +224,4 @@ Le kubeadmin-password peut etre obtenu avec la commande suivante:
 oc get secret  -n $KUBEVIRT_CLUSTER_NAMESPACE kubeadmin-password -o go-template --template="{{.data.password|base64decode}}"
 ```
 
+![final-view](./images/final-view.png)
