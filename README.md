@@ -1,9 +1,9 @@
 ###
 
-Ce guide est utilise un environnement AWS. Celui-ci peut etre obtenu via RHPDS>Open Environment>AWS Blank Open Environment>Order
+Ce guide utilise un environnement AWS. Celui-ci peut etre obtenu via RHPDS>Open Environment>AWS Blank Open Environment>Order
 
 ###
-On commence par creer un cluster openshift avec des noeuds baremetaux (Openshift Virtualization ne peux pas etre utilise sur des VM hosts).
+On commence par creer un cluster openshift avec des noeuds baremetal (Openshift Virtualization ne peux pas etre utilise sur des VM hosts).
 
 Parametrer votre configuration aws.
 
