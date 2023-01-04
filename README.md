@@ -161,6 +161,59 @@ On peut ensuite suivre la creation des cluster-operator avec:
 oc --kubeconfig ${KUBEVIRT_CLUSTER_NAME}-kubeconfig get clusteroperators -A
 ```
 
+Creation de l'ingress service:
+
+```shell
+export HTTPS_NODEPORT=$(oc --kubeconfig "${KUBEVIRT_CLUSTER_NAME}-kubeconfig" get services -n openshift-ingress router-nodeport-default -o wide | awk '{print $5}' | awk -F "443:" '{print $2}' | awk -F "/" '{print $1}' | tr -d '[:space:]')
+```
+```shell
+oc create -f - <<EOF
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ${KUBEVIRT_CLUSTER_NAME}
+  name: apps-ingress
+  namespace: ${KUBEVIRT_CLUSTER_NAMESPACE}
+spec:
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: https-443
+    port: 443
+    protocol: TCP
+    targetPort: $HTTPS_NODEPORT
+  selector:
+    kubevirt.io: virt-launcher
+  sessionAffinity: None
+  type: ClusterIP
+EOF
+```
+
+Create ingress route
+
+```shell
+oc create -f - <<EOF
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: ${KUBEVIRT_CLUSTER_NAME}-443
+  namespace: ${KUBEVIRT_CLUSTER_NAMESPACE}
+spec:
+  host: data.apps.$KUBEVIRT_CLUSTER_BASE_DOMAIN
+  wildcardPolicy: Subdomain
+  tls:
+    termination: passthrough
+  port:
+    targetPort: https-443
+  to:
+    kind: Service
+    name: apps-ingress
+    weight: 100
+EOF
+```
 Lorsque la console est up and running on peux y acceder via l'url suivante
 ```shell
 echo console-openshift-console.apps.${KUBEVIRT_CLUSTER_NAME}.${BASE_DOMAIN}
