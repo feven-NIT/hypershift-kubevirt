@@ -143,6 +143,13 @@ kubevirt \
 --release-image=quay.io/openshift-release-dev/ocp-release@sha256:b33682f203818fcec713c1c7cbe0b01731c8b64991579ca95d1a6409823c652a
 ```
 
+If you are on a baremetal environment you need to expose the api through metal Lb or through a Route. For the second option :
+```shell
+oc edit hc $KUBEVIRT_CLUSTER_NAME -n clusters
+```
+
+and replace loadbalancer by Route in api section.
+
 On attend ensuite que les vms passe au status Ready
 
 ```shell
@@ -226,3 +233,11 @@ oc get secret  -n $KUBEVIRT_CLUSTER_NAMESPACE kubeadmin-password -o go-template 
 ```
 
 ![final-view](./images/final-view.png)
+
+
+###Delete cluster
+
+To delete the cluster
+```shell
+hypershift destroy kubevirt --name $KUBEVIRT_CLUSTER_NAME
+```
