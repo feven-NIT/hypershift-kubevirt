@@ -239,5 +239,5 @@ oc get secret  -n $KUBEVIRT_CLUSTER_NAMESPACE kubeadmin-password -o go-template 
 
 To delete the cluster
 ```shell
-hypershift destroy kubevirt --name $KUBEVIRT_CLUSTER_NAME
+hypershift destroy cluster kubevirt --name $KUBEVIRT_CLUSTER_NAME
 ```
