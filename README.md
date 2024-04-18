@@ -1,46 +1,5 @@
 ###
 
-Ce guide utilise un environnement AWS. Celui-ci peut etre obtenu via RHPDS>Open Environment>AWS Blank Open Environment>Order
-
-###
-On commence par creer un cluster openshift avec des noeuds baremetal (Openshift Virtualization ne peux pas etre utilise sur des VM hosts).
-
-Parametrer votre configuration aws.
-
-```shell
-aws configure
-```
-
-On creer ensuite le fichier d'installation Openshift.
-
-```shell
-openshift-install create install-config --dir installation-directory
-```
-
-Completez les parametre relatif a votre cluster.
-
-![ipi-install](./images/ipi-install.png)
-
-Dans ce guide on utilisera des instances types m5.metal. Aller dans installation-directory et modifier le fichier install-config.yaml pour utiliser des worker baremetals.
-
-```shell
-compute:
-- architecture: amd64
-  hyperthreading: Enabled
-  name: worker
-  platform:
-    aws:
-      type: m5.metal
-  replicas: 2
-```
-
-Copier le fichier de config puis lancer l'installation.
-
-```shell
-cp install-config.yaml install-config/install-config.yaml
-openshift-install create cluster --dir installation-directory
-```
-
 ### Installation Openshift Virtualization et le multicluster-engine 
 
 #### Openshift Virtualization 
